@@ -3,16 +3,17 @@
      $connection = new mysqli( $host="localhost", $username="root", $passwd="", $dbname="alteyadb");
      $q = $connection->real_escape_string($_POST['q']);
      $column = $connection->real_escape_string($_POST['column']);
-
-     if ($column == "" || ($column != "ProductNameEnglish" && $column != "ProductNameBulgarian"))
+     if ($column == "" || ($column != "ProductNameEnglish" && $column != "ProductNameBulgarian" && $column != "SKUBG"))
         $column ="ProductNameEnglish";
 
-     $sql = $connection->query( $query="SELECT ProductNameEnglish FROM productinfo WERE $column LIKE '%$q%'");
+     $sql = $connection->query("SELECT ProductNameEnglish, ProductNameBulgarian, SKUBG FROM productinfo2 WHERE $column LIKE '%$q%'");
       if ($sql->num_rows > 0) {
             while ($data = $sql->fetch_array())
                 echo $data['ProductNameEnglish'] . "<br>";
+                echo $data['ProductNameBulgarian'] . "<br>";
+                echo $data['SKUBG'] . "<br>";
       } else
-            echo "Your Search queary doesen't match any data!";   
+            echo "Your Search query doesen't match any data!";   
  }
 ?>
 <html>
@@ -26,6 +27,7 @@
                 <option value="">Select Filter</option>
                 <option value="ProductNameEnglish">Product Name English</option>
                 <option value="ProductNameBulgarian">Product Name Bulgarian</option>
+                <option value="SKUBG">SKU BG</option>
             </select>
         <input type="submit" name="submit" value="Find">
     </form>
