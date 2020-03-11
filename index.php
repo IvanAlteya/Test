@@ -1,17 +1,23 @@
+
+<html>
+  <title>TEST IMAGE UPLOAD</title>
+<body>
+
+<form action="upload.php" method="post" enctype="multipart/form-data">
+ChooseFile: <input type="file" name="file">
+ <input type="submit" name="submit" value="Upload">
+</form>
+
+
 <?php
-/**
- * Front to the WordPress application. This file doesn't do anything, but loads
- * wp-blog-header.php which does and tells WordPress to load the theme.
- *
- * @package WordPress
- */
-
-/**
- * Tells WordPress to load the WordPress theme and output it.
- *
- * @var bool
- */
-define( 'WP_USE_THEMES', true );
-
-/** Loads the WordPress Environment and Template */
-require( dirname( __FILE__ ) . '/wp-blog-header.php' );
+mysqli_connect("localhost", "root", "", "alteyadb");
+$sql="SELECT * FROM productinfo2";
+$rdata=mysql_query($sql);
+while($res=mysql_fetch_array($rdata))
+{
+$imgpath=$res['image'];
+echo "<img src='$imgpath' height='20' width='20'>";
+} 
+?>
+</body>
+</html>
